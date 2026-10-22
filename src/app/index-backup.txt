@@ -1,0 +1,237 @@
+
+import { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+
+export default function HomeScreen() {
+  const [tela, setTela] = useState('inicio');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <StatusBar style="dark" />
+
+      <View style={styles.logo}>
+        <Text style={styles.logoTexto}>MB</Text>
+        <Text style={styles.logoSubtexto}>AÇAITERIA</Text>
+      </View>
+
+      {tela === 'inicio' ? (
+        <View style={styles.conteudo}>
+          <Text style={styles.titulo}>Seu momento de açaí!</Text>
+          <Text style={styles.descricao}>
+            Monte seu açaí favorito e receba onde estiver.
+          </Text>
+
+          <View style={styles.copo}>
+            <Text style={styles.emoji}>🍇</Text>
+            <Text style={styles.copoTexto}>AÇAÍ DO SEU JEITO</Text>
+          </View>
+
+          <Pressable
+            style={styles.botao}
+            onPress={() => setTela('login')}
+          >
+            <Text style={styles.botaoTexto}>ENTRAR</Text>
+          </Pressable>
+
+          <Pressable
+            style={styles.botaoSecundario}
+            onPress={() => setTela('cadastro')}
+          >
+            <Text style={styles.botaoSecundarioTexto}>
+              CRIAR CONTA
+            </Text>
+          </Pressable>
+        </View>
+      ) : (
+        <View style={styles.formulario}>
+          <Text style={styles.titulo}>
+            {tela === 'login' ? 'Bem-vindo de volta!' : 'Crie sua conta'}
+          </Text>
+
+          {tela === 'cadastro' && (
+            <TextInput
+              style={styles.input}
+              placeholder="Seu nome"
+              placeholderTextColor="#888"
+            />
+          )}
+
+          <TextInput
+            style={styles.input}
+            placeholder="Seu e-mail"
+            placeholderTextColor="#888"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Sua senha"
+            placeholderTextColor="#888"
+            value={senha}
+            onChangeText={setSenha}
+            secureTextEntry
+          />
+
+          <Pressable
+            style={styles.botao}
+            onPress={() =>
+              alert('Esta funcionalidade será implementada nas próximas etapas!')
+            }
+          >
+            <Text style={styles.botaoTexto}>
+              {tela === 'login' ? 'ENTRAR' : 'CADASTRAR'}
+            </Text>
+          </Pressable>
+
+          <Pressable
+            style={styles.voltar}
+            onPress={() => setTela('inicio')}
+          >
+            <Text style={styles.link}>← Voltar ao início</Text>
+          </Pressable>
+        </View>
+      )}
+
+      <Text style={styles.rodape}>
+        MB Açaiteria • Feito para você 💜
+      </Text>
+    </ScrollView>
+  );
+}
+
+const ROXO = '#7026A6';
+const ROXO_CLARO = '#F3E8FC';
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 24,
+    minHeight: '100%',
+  },
+  logo: {
+    alignItems: 'center',
+    marginBottom: 36,
+  },
+  logoTexto: {
+    color: ROXO,
+    fontSize: 58,
+    fontWeight: '900',
+    letterSpacing: 3,
+  },
+  logoSubtexto: {
+    color: ROXO,
+    fontSize: 15,
+    fontWeight: '700',
+    letterSpacing: 5,
+  },
+  conteudo: {
+    width: '100%',
+    maxWidth: 380,
+    alignItems: 'center',
+  },
+  titulo: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: ROXO,
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  descricao: {
+    fontSize: 16,
+    color: '#555555',
+    textAlign: 'center',
+    lineHeight: 24,
+    marginBottom: 24,
+  },
+  copo: {
+    width: 210,
+    height: 180,
+    borderRadius: 24,
+    backgroundColor: ROXO_CLARO,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 28,
+  },
+  emoji: {
+    fontSize: 76,
+    marginBottom: 8,
+  },
+  copoTexto: {
+    color: ROXO,
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 1,
+  },
+  botao: {
+    backgroundColor: ROXO,
+    width: '100%',
+    padding: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  botaoTexto: {
+    color: '#FFFFFF',
+    fontWeight: '800',
+    fontSize: 15,
+  },
+  botaoSecundario: {
+    width: '100%',
+    padding: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: ROXO,
+  },
+  botaoSecundarioTexto: {
+    color: ROXO,
+    fontWeight: '800',
+    fontSize: 15,
+  },
+  formulario: {
+    width: '100%',
+    maxWidth: 380,
+    alignItems: 'center',
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#F7F5F9',
+    borderWidth: 1,
+    borderColor: '#E0D6E8',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 14,
+    fontSize: 16,
+    color: '#222222',
+  },
+  voltar: {
+    padding: 12,
+  },
+  link: {
+    color: ROXO,
+    fontWeight: '600',
+    fontSize: 15,
+  },
+  rodape: {
+    color: '#888888',
+    fontSize: 12,
+    marginTop: 36,
+    textAlign: 'center',
+  },
+});
